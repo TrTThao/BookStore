@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using BookStore.Models;
+@model List<Order>
+
+<div class="container">
+   <table class="table">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var x in @Model)
+            {
+            <tr class="table-primary">
+                <td>@x.ID</td>
+                <td>@x.OrderDate</td>
+                @{
+                    if (x.Status == true)
+                    {
+                        <td class="text-danger">Chưa giao hàng</td>
+
+                    }
+                    else
+                    {
+                        <td class="text-success">Đã giao hàng</td>
+
+                    }
+                }
+                <td><a href="/Admin/ManageOrder/Details/@x.ID">Chi tiết</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

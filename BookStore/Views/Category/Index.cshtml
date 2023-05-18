@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using BookStore.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Book>
+
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Sản Phẩm</h2>
+        @foreach (Book x in @Model)
+        {
+            <div class="col-sm-4">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img src=@Url.Content(x.ImagePath) style="width:180px; height:180px;" alt="" />
+                            <h2>@string.Format("{0:#,0.#}", x.Price) VNĐ</h2>
+                            @{
+                                if (x.Name.Length > 28)
+                                {
+                                    <p>@x.Name.Substring(0, 28) ..</p>
+                                }
+                                else
+                                {
+                                    <p>@x.Name</p>
+                                }
+                            }
+
+                            <a href="/Cart/AddBookToCart?id=@x.ID&quantity=1" class="btn btn-default add-to-cart add-card"><i class="fa fa-shopping-cart"></i>Thêm Giỏ</a>
+                            <a href="/Detail/Index/@x.ID" class="btn btn-default add-to-cart"><i class="fa fa-info-circle"></i>Xem Chi Tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+    </div><!--features_items-->
+    @*<div>
+            <ul class="pagination">
+                <li class="active"><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">&raquo;</a></li>
+            </ul>
+        </div>*@
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @categoryName = ViewBag.categoryName }), new PagedListRenderOptions()
+    {
+        MaximumPageNumbersToDisplay = 5,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = false
+    })
+</div>
+

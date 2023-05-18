@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BookStore.Models.DetailModel
+<div class="col-sm-9 padding-right">
+    <div class="product-details">
+        <!--product-details-->
+        <div class="col-sm-5">
+            <div class="view-product">
+                <img src=@Url.Content(Model.book.ImagePath) style="width:300px;height:400px;" alt="" />
+            </div>
+
+
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+                <!--/product-information-->
+                <img src="images/product-details/new.jpg" class="newarrival" alt="" />
+                <h2>@Model.book.Name</h2>
+                <p>Số lượng sẵn có: @Model.book.NumberOfInventory</p>
+                <img src=@Url.Content("~/Assets/AssetHome/images/product-details/rating.png") alt="" />
+                @using (Html.BeginForm("AddBookToCart", "Cart", FormMethod.Get))
+                {
+                    <span>
+                        <span style="font-size:20px;">@string.Format("{0:#,0.#}", Model.book.Price) VNĐ</span>
+                        <label>Số lượng:</label>
+
+                        @Html.Hidden("ID", Model.book.ID)
+                        <input type="text" name="quantity" value="1" />
+                        <button type="submit" class="btn btn-fefault cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            Thêm Giỏ
+                        </button>
+
+
+                    </span>
+                }
+                <p><b>Nhà xuất bản:</b> @Model.book.Publisher.Name</p>
+                <p><b>Tác giả:</b> @Model.book.Author.Name</p>
+                <p><b>Loại sách:</b> @Model.book.Category.Name</p>
+            </div><!--/product-information-->
+        </div>
+    </div><!--/product-details-->
+
+    <div class="category-tab shop-details-tab">
+        <!--category-tab-->
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#reviews" data-toggle="tab">Chi tiết</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="reviews">
+                <div class="col-sm-12">
+
+                    <p>@Model.book.Decription</p>
+                </div>
+            </div>
+
+        </div>
+    </div><!--/category-tab-->
+
+   
+
+</div>

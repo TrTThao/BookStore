@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using BookStore.Areas.Admin.Models;
+@model ManageOrderModel
+
+@section jsFooter{
+    <script src="~/Areas/Admin/js/Scripts/mainJS.js"></script>
+}
+
+
+<div style="margin-bottom:100px;">
+    <div style="background-color:#e3f1d0; padding:20px;">
+        <h4> Đơn Hàng: @Model.order.ID </h4><br />
+        Khách Hàng: @Model.order.User.Name<br />
+        Ngày đặt: @Model.order.OrderDate<br />
+        Thời gian dự kiến giao hàng: @Model.order.DeliveryDate<br />
+        Địa chỉ giao hàng: @Model.order.Address<br />
+        Chú ý: @Model.order.Note<br />
+        Trạng thái:
+        @{
+            if (@Model.order.Status == true)
+            {
+                <span>Chưa giao</span>
+
+            }
+            else
+            {
+                <span>Đã giao</span>
+            }
+        }
+    </div>
+
+
+    <table class="table table-condensed">
+        <thead>
+            <tr class="cart_menu">
+                <td class="image">Sản phẩm</td>
+                <td class="description">Tên sách</td>
+                <td class="price">Giá</td>
+                <td class="quantity">Số lượng</td>
+                <td class="total">Thành tiền</td>
+            </tr>
+        </thead>
+        <tbody style="background-color:lightgray;">
+
+            @foreach (var x in Model.orderDetails)
+            {
+                <tr>
+                    <td class="cart_product">
+                        <a href="">
+                            <img src="@Url.Content(x.Book.ImagePath)" style=" width: 120px; height: 120px;" alt="">
+                        </a>
+                    </td>
+                    <td class="cart_description">
+                        <h4><a href="">@x.Book.Name</a></h4>
+                    </td>
+                    <td class="cart_price">
+                        <p>@string.Format("{0:#,0.#}", x.Book.Price)</p>
+                    </td>
+                    <td class="cart_quantity">
+                        <div class="cart_quantity_button">
+                            <input class="cart_quantity_input" disabled type="text" value="@x.NumberOfBooks" size="2">
+
+                        </div>
+                    </td>
+                    <td class="cart_total">
+                        <p class="cart_total_price">
+                            @{var k = (double)x.NumberOfBooks * x.PriceOfBook;}
+                            @string.Format("{0:#,0.#}", k.GetValueOrDefault(0))
+                        </p>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+    <h3>Tổng Tiền: @string.Format("{0:#,0.#}", Model.intoMoney) VNĐ</h3>
+    @if (Model.order.Status == true)
+    {
+        <button class="btn btn-danger btnConfirmOrder" data-id="@Model.order.ID">Xác nhận giao hàng</button>
+        <button class="btn btn-danger btnCancelOrder" data-id="@Model.order.ID">Hủy đơn hàng</button>
+    }
+    <button class="btn btn-warning"><a href="/Admin/ManageOrder/Index">Trở về</a></button>
+</div>
+
+

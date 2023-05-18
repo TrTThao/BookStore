@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+    <div style="text-align:center; margin-bottom:100px;">
+        <h2>Thêm thành công</h2>
+        @using (Html.BeginForm("CreateNewBook", "HomeAdmin", FormMethod.Get))
+        {
+            <button class="btn btn-info" type="submit">Tiếp tục</button>
+        }
+    </div>
+

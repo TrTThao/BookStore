@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCart.cshtml";
+}
+
+@using BookStore.Models;
+@model List<OrderModel>
+
+@foreach (var m in @Model)
+{
+    <div style="margin-bottom:100px;">
+        <div style="background-color:#e3f1d0; padding:20px;">
+            <h4> Đơn Hàng: @m.id </h4><br />
+            Ngày đặt: @m.order.OrderDate<br />
+            Thời gian dự kiến giao hàng: @m.order.DeliveryDate<br />
+            Địa chỉ giao hàng: @m.order.Address<br />
+            Trạng thái:
+            @{
+                if (m.order.Status == true)
+                {
+                    <a>Chưa giao</a>
+
+                }
+                else
+                {
+                    <span>Đã giao</span>
+                }
+            }
+        </div>
+
+
+        <table class="table table-condensed">
+            <thead>
+                <tr class="cart_menu">
+                    <td class="image">Sản phẩm</td>
+                    <td class="description">Tên sách</td>
+                    <td class="price">Giá</td>
+                    <td class="quantity">Số lượng</td>
+                    <td class="total">Thành tiền</td>
+                </tr>
+            </thead>
+            <tbody style="background-color:lightgray;">
+
+                @foreach (var x in m.cartModels)
+                {
+                    <tr>
+                        <td class="cart_product">
+                            <a href="">
+                                <img src="@Url.Content(x.book.ImagePath)" style="        width: 120px;
+        height: 120px;" alt="">
+                            </a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">@x.book.Name</a></h4>
+                        </td>
+                        <td class="cart_price">
+                            <p>@string.Format("{0:#,0.#}", x.book.Price)</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <input class="cart_quantity_input txtquantity" type="text" disabled data-id="@x.book.ID" id="quantity-@x.book.ID" name="quantity" value="@x.Quantity" size="2">
+
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price"> @string.Format("{0:#,0.#}", x.IntoMoney) VNĐ</p>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+
+

@@ -1,0 +1,152 @@
+﻿
+@{
+    Layout = null;
+}
+@using BookStore;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Shop | E-Shopper</title>
+    <link href="~/Assets/AssetHome/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/price-range.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/animate.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/main.css" rel="stylesheet">
+    <link href="~/Assets/AssetHome/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/Assets/AssetHome/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/Assets/AssetHome/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/Assets/AssetHome/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/Assets/AssetHome/images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("script ~ div").css('display', 'none');
+            $("center a").css('display', 'none');
+        });
+    </script>
+</head><!--/head-->
+
+<body>
+
+
+    <!-- <section id="advertisement">
+        <div class="container">
+            <img src="images/shop/advertisement.jpg" alt="" />
+        </div>
+    </section> -->
+    <header id="header">
+
+
+        <!--header-->
+
+
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 clearfix">
+                        <div class="logo pull-left">
+                            <a href="/Admin/HomeAdmin/Index"><img src="@Url.Content("~/images/logo/logo.jpg")" style="width:100px;height:70px;" alt="" /></a>
+
+                        </div>
+                        <!-- <div class="btn-group pull-right clearfix">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                    USA
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="">Canada</a></li>
+                                    <li><a href="">UK</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                    DOLLAR
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="">Canadian Dollar</a></li>
+                                    <li><a href="">Pound</a></li>
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-md-8 clearfix">
+                        <div class="shop-menu clearfix pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/Admin/HomeAdmin/CreateNewBook"><i class="fa fa-plus"></i> Thêm Sản Phẩm</a></li>
+                                <li><a href="/Admin/HomeAdmin/ListBook"><i class="fa fa-list"></i> Danh Sách Sản Phẩm</a></li>
+                                <li><a href="/Admin/ManageOrder/Index"><i class="fa fa-shopping-cart"></i> Đơn Hàng(<span style="color:red">@BookStore.Areas.Admin.Commons.OrderCommon.db.Orders.Count(m => m.Status == true))</span></a></li>
+                                <li><a href="/Home/Logout"><i class="fa fa-lock"></i> Đăng Xuất</a></li>
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+    </header>
+    <section>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+
+    <footer id="footer">
+        <!--Footer-->
+
+
+
+
+
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">Copyright © 2013 E-Shopper. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </footer><!--/Footer-->
+
+
+
+    <script src="~/Assets/AssetHome/js/jquery.js"></script>
+    <script src="~/Assets/AssetHome/js/price-range.js"></script>
+    <script src="~/Assets/AssetHome/js/jquery.scrollUp.min.js"></script>
+    <script src="~/Assets/AssetHome/js/bootstrap.min.js"></script>
+    <script src="~/Assets/AssetHome/js/jquery.prettyPhoto.js"></script>
+    <script src="~/Assets/AssetHome/js/main.js"></script>
+    <script src="~/Areas/Admin/js/plugins/ckfinder/ckfinder.js"></script>
+   
+    @RenderSection("jsFooterck", required: false)
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    @RenderSection("jsFooter", required: false)
+
+</body>
+</html>
+

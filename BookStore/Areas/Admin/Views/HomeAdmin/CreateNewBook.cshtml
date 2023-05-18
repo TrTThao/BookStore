@@ -1,0 +1,146 @@
+﻿
+@using BookStore.Areas.Admin.Models;
+@using BookStore.Models;
+@model BookModel
+@{
+    BookstoreEntities db = new BookstoreEntities();
+}
+
+@{
+    ViewBag.Title = "CreateNewBook";
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section jsFooter{
+    <script src="~/Areas/Admin/js/Scripts/mainJS.js">
+    </script>
+}
+<h2>Thêm mới sách</h2>
+
+@using (Html.BeginForm("CreateNewBook", "HomeAdmin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("BookType", "Loại sách", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => Model.book.BookTypeID, db.Categories.ToList().Select(m => new SelectListItem
+           {
+               Text = m.Name,
+               Value = m.ID.ToString()
+
+           }
+
+           ), "--Loại sách--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.book.BookTypeID, "", new { @class = "text-danger" })
+
+                <button class="btn btn-light" id="addCategory">Thêm thể loại</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Author", "Tác giả", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => Model.book.AuthorID, db.Authors.ToList().Select(m => new SelectListItem
+           {
+               Text = m.Name,
+               Value = m.ID.ToString()
+           }
+
+           ), "--Tác giả--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.book.AuthorID, "", new { @class = "text-danger" })
+
+                <button class="btn btn-light" id="addAuthor">Thêm tác giả</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.Label("Publisher", "Nhà xuất bản", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => Model.book.PublisherID, db.Publishers.ToList().Select(m => new SelectListItem
+           {
+               Text = m.Name,
+               Value = m.ID.ToString()
+           }
+
+           ), "--Nhà xuất bản--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.book.PublisherID, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Name", "Tên Sách", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.Name, new { htmlAttributes = new { @class = "form-control", @style = "width:50%;" } })
+                @Html.ValidationMessageFor(model => model.book.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Price", "Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.Price, new { htmlAttributes = new { @class = "money form-control", @style = "width:50%;" } })
+                @Html.ValidationMessageFor(model => model.book.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Decription", "Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.book.Decription, new { @class = "form-control", @style = "width:50%;", @cols = "50", rows = "10" })
+                @Html.ValidationMessageFor(model => model.book.Decription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("NumberOfInventory", "Số lượng", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.NumberOfInventory, new { htmlAttributes = new { @class = "form-control", @style = "width:50%;" } })
+                @Html.ValidationMessageFor(model => model.book.NumberOfInventory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Note", "Ghi chú", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.book.Note, new { @class = "form-control", @style = "width:50%;", @cols = "50", rows = "5" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("ImagePath", "Ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.book.ImagePath, new { htmlAttributes = new { @class = "form-control", @style = "width:50%;" } })
+                <button id="btnChooseImage">Chọn Ảnh</button>
+                @Html.ValidationMessageFor(model => model.book.ImagePath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm mới" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="~/Scripts/FomatCurrency.js"></script>
+<script type="text/javascript">
+    $('.money').simpleMoneyFormat();
+</script>
+
+
+

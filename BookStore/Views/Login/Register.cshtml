@@ -1,0 +1,99 @@
+﻿
+@{
+    Layout = null;
+}
+@model BookStore.Models.RegisterModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v10 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="~/Assets/AssetRegister/fonts/linearicons/style.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/Assets/AssetRegister/css/style.css">
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.intellisense.js"></script>
+    <script src="~/Scripts/RegisterScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("script ~ div").css('display', 'none');
+            $("center a").css('display', 'none');
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="inner">
+            <img src=@Url.Content("~/Assets/AssetRegister/images/image-1.png") alt="" class="image-1">
+            <form id="frmRegister">
+                <h3>Tạo Tài Khoản</h3>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    @*<input type="text"  class="name form-control" placeholder="Họ và tên">*@
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Họ và tên" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @placeholder = "Tên tài khoản" })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-phone-handset"></span>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @placeholder = "Số điện thoại" })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-envelope"></span>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Mail" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-holder">
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Sex, true, new { @selected=true}) Nam
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Sex, false) Nữ
+                    </label>
+                </div>
+                <button id="btnRegister">
+                    <span>Đăng Ký</span>
+                </button>
+            </form>
+            <img src=@Url.Content("~/Assets/AssetRegister/images/image-2.png") alt="" class="image-2">
+        </div>
+
+    </div>
+
+    <script src="~/Assets/AssetRegister/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/AssetRegister/js/main.js"></script>
+</body>
+</html>

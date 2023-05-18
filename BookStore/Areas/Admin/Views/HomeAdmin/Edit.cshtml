@@ -1,0 +1,128 @@
+﻿@model BookStore.Areas.Admin.Models.BookModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter{
+    <script src="~/Areas/Admin/js/Scripts/mainJS.js"></script>
+}
+<h2>Sửa sách</h2>
+
+<form class="frmEdit">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.book.ID)
+
+        <div class="form-group">
+            @Html.Label("Name", "Tên Sách", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.book.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Price", "Giá", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.Price, new { htmlAttributes = new { @class = "money form-control" } } )
+                @Html.ValidationMessageFor(model => model.book.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Decription", "Mô tả", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.book.Decription, new { @class = "form-control", @cols = "30", rows = "10" })
+                @Html.ValidationMessageFor(model => model.book.Decription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.NumberOfInventory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.NumberOfInventory, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.book.NumberOfInventory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.UpdateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.UpdateDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.book.UpdateDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.book.Note, new { @class = "form-control", @cols = "30", rows = "10" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.book.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.book.ImagePath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.BookTypeID, "BookTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.book.BookTypeID, Model.categories.Select(m => new SelectListItem
+            {
+                Text = m.Name,
+                Value = m.ID.ToString()
+            }
+
+            ), "--Thể loại--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.book.BookTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tác Giả", "AuthorID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.book.AuthorID, Model.authors.Select(m => new SelectListItem
+            {
+                Text = m.Name,
+                Value = m.ID.ToString()
+            }
+
+            ), "--Tác giả--", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.book.PublisherID, "PublisherID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.book.PublisherID, Model.publishers.Select(m => new SelectListItem
+             {
+                 Text = m.Name,
+                 Value = m.ID.ToString()
+             }
+
+             ), "--Nhà xuất bản--", new { @class = "form-control" }) @Html.ValidationMessageFor(model => model.book.PublisherID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu lại" class="btn btn-default btnSaveBook" />
+            <button type="button" class="btn btn-danger"><a href="/Admin/HomeAdmin/ListBook">Trở về</a></button>
+        </div>
+    </div>
+</div>
+</form>
+
+<script type="text/javascript" src="~/Scripts/FomatCurrency.js"></script>
+<script type="text/javascript">
+    $('.money').simpleMoneyFormat();
+</script>
